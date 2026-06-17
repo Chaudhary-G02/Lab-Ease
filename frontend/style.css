@@ -1,0 +1,198 @@
+:root {
+    --primary: hsl(185, 75%, 38%);
+    --primary-light: hsl(185, 75%, 95%);
+    --primary-hover: hsl(185, 75%, 32%);
+    --secondary: hsl(210, 20%, 98%);
+
+    --bg-main: hsl(210, 30%, 98%);
+    --bg-card: hsl(0, 0%, 100%);
+    --sidebar-bg: hsl(215, 28%, 17%);
+    --sidebar-hover:hsl(215, 28%, 23%);
+
+    --text-primary: hsl(215, 28%, 17%);
+    --text-secondary: hsl(210, 10%, 45%);
+    --text-muted: hsl(210, 8%, 65%);
+    --text-light: hsl(0, 0%, 98%);
+
+    --success: hsl(145, 63%, 42%);
+    --warning:hsl(38, 92%, 50%);
+    --danger: hsl(354, 70%, 54%);
+
+    --sidebar-width: 260px;
+    --header-height: 70px;
+    --boder-radius: 12px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba (0, 0, 0, 0.05);
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar{
+    width: var(--sidebar-width);
+    background-color: var(--sidebar-bg);
+    color: var(--text-light);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    transition: var(--transition);
+}
+.sidebar-brand{
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap:12px;
+    border-bottom: 1px solid var(--sidebar-hover);
+}
+
+.brand-icon{
+    font-size: 1.5rem;
+    color: var(--primary);
+}
+
+.sidebar-nav{
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1;
+}
+
+.nav-item{
+    display: flex;
+    align-items: centre;
+    gap: 14px;
+    padding: 12px 16px;
+    color: var(--text-light);
+    text-decoration: none;
+    border-radius:var(--border-radius);
+    font-weight: 500;
+    font-size:0.95rem;
+    opacity: 0.75;
+    transition: var(--transition);
+}
+
+.nav-item i{
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: centre;
+}
+ 
+.nav-item:hover {
+    background-color: var(--sidebar-hover);
+    opacity: 1;
+}
+
+.nav-item.active {
+    background-color: var(--primary);
+    opacity: 1;
+    box-shadow: 0 4px 12px rgba( 0, 180, 180, 0.2);
+}
+
+.sidebar-footer{
+    padding: 20px 24px;
+    border-top: 1px solid var(--sidebar-hover);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-align: centre;
+}
+
+.main-content {
+    margin-left: var(--sidebar-width);
+    flex-grow: 1;
+    min-height:100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-header{
+    height: var(--header-height);
+    background-color: var(--bg-card);
+    border-bottom: 1px solid hsl(210, 14%, 90%);
+    padding: 0 40px;
+    display: flex;
+    align-items: centre;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    box-shadow: var(--shadow-sm);
+}
+
+.top-header h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.user-profile{
+    display:flex;
+    align-items: centre;
+    gap: 8px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.profile-icon {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+}
+
+.content-section {
+    padding: 40px;
+    flex-grow: 1;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 70px;
+    }
+    .sidebar-brand h2,
+    .nav-item span,
+    .sidebar-footer p{
+        display: none;
+    }
+    .sidebar-brand {
+        justify-content: center;
+        padding: 20px 0;
+    }
+    .sidebar-nav {
+        padding: 20px 8px;
+    }
+    .nav-item {
+        justify-content: center;
+        padding: 12px;
+    }
+    .main-content {
+        margin-left: 70px;
+    }
+    .top-header {
+        padding: 0 20px;
+    }
+    .content-section {
+        padding: 20px;
+    }
+}
