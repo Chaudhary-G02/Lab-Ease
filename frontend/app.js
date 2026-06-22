@@ -1,0 +1,1 @@
+console.log("Lab-Ease: app.js loaded successfully");

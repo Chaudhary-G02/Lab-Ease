@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta  charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lab-Ease  | Lab Inventory & locator</title>
+        <!--Google fonts for modern typography -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <!--fontawesome for icons-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <!--custom style sheet -->
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="app" class="app-container">
+          <aside class="sidebar">
+            <div class="sidebar-brand">
+                <i class="fa-solid fa-flask-vial brand-icon"></i>
+                <h2>Lab-Ease</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-target="dashboard">
+                    <i class="fa-solid fa-chart-simple"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-target="inventory">
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                    <span>Inventory</span>
+                </a>
+                <a href="#" class="nav-item" data-target="locater">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    <span>Lab Locater</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <p>v1.0.0 (Local)</p>
+            </div>
+          </aside>
+                                            <main class="main-content">
+                                                <header class="top-header">
+                                                    <h1 id="page-title">dashboard</h1>
+                                                    <div class="user-profile">
+                                                        <i class="fa-regular fa-circle-user profile-icon"></i>
+                                                <span>lab assistant</span>
+                                                </div>
+                                                </header>
+
+                                            <section id="content-area" class="content-section">
+                                                <div id="dashboard-view" class="view-content  active">
+                                            <div class="stats-grid">
+                                            <div class="stat-card">
+                                                <div class="stat-info">
+                                            <h3>Total Items</h3>
+                                            <p class="stat-number" id="stat-total">0</p>
+                                            </div>
+                                            <div class="stat-icon-wrapper primary">
+                                            <i class="fa-solid fa-layer-group"></i>
+                                            </div>
+                                            </div>
+                                            <div class="stat-card">
+                                            <div class="stat-info">
+                                                <h3>Instruments</h3>    
+                                                <p class="stat-number" id="stat-instruments">0</p>
+                                            </div>
+                                            <div class="stat-icon-wrapper success">
+                                                <i class="fa-solid fa-microscope"></i>
+                                            </div>
+                                            </div>
+                                            <div class="stat-card">
+                                                <div class="stat-info">
+                                                 <h3>Chemicals</h3>   
+                                                 <p class="stat-number" id="stat-chemicals">0</p>
+                                                </div>
+                                                <div class="stat-icon-wrapper warning">
+                                                <i class="fa-solid fa-vial"></i>
+                                                </div>
+                                            </div>
+                                            <div class="stat-card">
+                                                <div class="stat-info">
+                                               <h3>Low Stock</h3>     
+                                               <p class="stat-number" id="stat-low">0</p>
+                                                </div>
+                                                <div class="stat-icon-wrapper danger">
+                                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                                </div>
+                                               </div>
+                                            </div>
+                                            <div class="dashboard-details">
+                                                <div class="details-card">
+                                              <div class="card-header">
+                                                <h2><i class="fa-solid fa-clock-rotate-left"></i>Recently logged Items</h2>    
+                                            </div>  
+                                            <div class="card-body">
+                                                <ul class="recent-list" id="recent-items-list">
+                                            <li class="no data">No items logged yet. Head to "Inventory" to add items!</li>
+                                            </ul>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            <div id="inventory-view" class="view-content">
+                                                <div class="placeholder-view">
+                                                    <i class="fa-solid fa-boxes-stacked"></i>
+                                                    <h2>Inventory View</h2>
+                                                    <p>This is where the inventory database list will be displayed.</p>
+                                                    </div>
+                                                    </div>
+                                                    <div id="locator-view" class="view-content">
+                                                        <div class="placeholder-view">
+                                                        <i class="fa-solid fa-map-location-dot"></i>
+                                                        <h2>Lab Locator View</h2>    
+                                                        <p>This is where we will draw our visual cabinet grid to locate items.</p>
+                                                        </div>
+                                                        </div>
+                                            </section>    
+                                                </main>
+                                            </div>
+                                            <script src="app.js"></script>
+  </body>                                          
+</html>
