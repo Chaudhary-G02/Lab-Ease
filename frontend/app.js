@@ -112,42 +112,52 @@ function renderAll() {
     renderDashboard();
     renderInventoryTable();
 }
-
-function renderInventoryTable() {
-    const tableBody = document.getElementById('inventory-table-body');
-    tableBody.innerHTML = '';
-
-    if (items.length === 0) {
-        tableBody.innerHTML = `
-        <tr>
-        <td colspan="6" class ="table-no-data">
-        No items registered yet. Click "Add Item" to start!
-        </td>
-        </tr>
-        `;
-        return;
+    function renderInventoryTable(filterQuery = '') {
+        const tableBody = document.getElementById('inventory-table-body');
+        tableBody.innerHTML = '';
+        
+        const filteredItems = items.filter(item => {
+            const query = filterQuery.toLowerCase();
+            return (
+                item.name.toLowerCase().includes(query) ||
+                item.type.toLowerCase().includes(query) ||
+                item.cabinet.toLowerCase().includes(query) ||
+                item.shelf.toLowerCase().includes(query)
+            );
+        });
+        if (filteredItems.length === 0) {
+            tableBody.innerHTML = `
+            <tr>
+            <td colspan="6" class="table-no-data">
+            ${filterQuery ? 'No matching items found.' : 'No items registered yet. Click "Add Item" to start!'}
+            </td>
+            </tr>
+            `;
+            return;
+        }
+        filteredItems.forEach(item => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+            <td><strong>${item.name}</strong></td>
+            <td><span class="badge-type">${item.type}</span></td>
+            <td>${item.quantity}</td>
+            <td>${item.cabinet} (${item.shelf})</td>
+            <td><span class="badge ${item.status}">${item.status}</span></td>
+            <td>
+            <button class="btn-icon locate" onclick="locateItem('${item.id}')" title="Locate in Map" style="margin-right: 4px;">
+            <i class="fa-solid fa-map-location-dot"></i>
+            </button>
+            <button class="btn-icon edit" onclick="editItem('${item.id}')" title="Edit">
+            <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+            <button class="btn-icon delete" onclick="deleteItem('${item.id}')" title="Delete">
+            <i class="fa-solid fa-trash-can"></i>
+            </button>
+            </td>
+            `;
+            tableBody.appendChild(row);
+        });
     }
-
-    items.forEach(item => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-        <td><strong>${item.name}</strong></td>
-        <td><span class="badge-type>${item.type}</span></td>
-        <td>${item.quantity}</td>
-        <td>${item.cabinet} (${item.shelf})</td>
-        <td><span class="badge ${item.status}">${item.status}</span></td>
-        <td>
-        <button class="btn-icon edit" onclick="editItem('${item.id}')" title="Edit">
-        <i class="fa-solid fa-pen-to-square"></i>
-        </button>
-        <button class="btn-icon delete" onclick="deleteItem('${item.id}')" title="Delete">
-        <i class="fa-solid fa-trash-can"></i>
-        </button>
-        </td>
-        `;
-        tableBody.appendChild(row);
-    });
-}
 
     function renderDashboard() {
         const totalCount = items.length;
@@ -185,3 +195,50 @@ function renderInventoryTable() {
         });
     }
 renderAll();
+
+const searchInput = document.getElementById('inventory-search');
+searchInput.addEventListener('input', (e) => {
+    const query = e.target.value.trim();
+    renderInventoryTable(query);
+});
+window.locateItem = function(id) {
+    const item = items.find(item => item.id === id);
+    if (!item) return;
+
+    const locaterTab = document.querySelector('.nav-item[data-target="locater"]');
+    if (locaterTab) {
+        navItems.forEach(nav => nav.classList.remove('active'));
+        locaterTab.classList.add('active');
+
+        views.forEach(view => view.classList.remove('active'));
+        const locaterView = document.getElementById('locater-view');
+        if (locaterView) {
+            locaterView.classList.add('active');
+        }
+        pageTitle.textContent = "Lab Locater";
+    }
+
+    document.querySelectorAll('.cabinet-box').forEach(box => {
+        box.classList.remove('highlight');
+    });
+    document.querySelectorAll('.shelf-row').forEach(shelf => {
+        shelf.classList.remove('highlight-shelf');
+    });
+
+    const targetCabinet = document.querySelector(`.cabinet-box[data-cabinet="${item.cabinet}"]`);
+    if (targetCabinet) {
+        targetCabinet.classList.add('highlight');
+
+    const targetShelf = targetCabinet.querySelector(`.shelf-row[data-shelf="${item.shelf}"]`);
+    if (targetShelf) {
+        targetShelf.classList.add('highlight-shelf');
+    }
+    targetCabinet.scrollIntoView({behavior: 'smooth', block: 'center'});
+    setTimeout(() => {
+        targetCabinet.classList.remove('highlight');
+        if (targetShelf) {
+            targetShelf.classList.remove('highlight-shelf');
+        }
+    }, 5000);
+    }
+};
